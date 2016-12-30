@@ -1,0 +1,52 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>用户管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li>
+                <strong>系统设置</strong>
+            </li>
+            <li class="active">
+                <strong>用户管理</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="row">
+    <div class="wrapper wrapper-content">
+        <div class="ibox">
+             <div class="ibox-title">
+                    <h5>用户列表</h5>
+                    <div class="ibox-tools">
+                        <button class="btn btn-xs btn-primary" ng-click="users.goUserAdd()">添加用户</button>
+                    </div>
+                </div>
+            <div class="ibox-content">
+                <div class="animated fadeInRight">
+                    <table class="table">
+                        <tr>
+                            <th>序号</th>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>身份</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ng-repeat="row in users.users">
+                            <td>{{$index+1}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.email}}</td>
+                            <td>{{row.role}}</td>
+                            <td>
+                                <a href="javascript:void(0)" ng-click="users.goChangeCustomPermissions(row._id)">权限配置</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

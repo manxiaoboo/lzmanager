@@ -1,0 +1,15 @@
+{
+  "name"        : "lzmanager",  // 应用名称
+  "script"      : "./index.js",  // 实际启动脚本
+  "cwd"         : "./",  // 当前工作路径
+  "watch": [  // 监控变化的目录，一旦变化，自动重启
+    "bin",
+    "routers"
+  ],
+  "watch_options": {
+    "followSymlinks": false
+  },
+  "env": {
+      "NODE_ENV": "production"  // 环境参数，当前指定为生产环境
+  }
+}

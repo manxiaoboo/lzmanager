@@ -1,0 +1,164 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>安装材料信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <strong>新建安装材料</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>*(新建安装材料)</h5>
+                    <div class="ibox-tools">
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" ng-submit="mc_create.create()" validate>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">材料名称</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.MaterialName" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">材料编号</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.MaterialCode" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">材料品牌</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.MaterialBrand" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">规格</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Specification" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">单位</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Unit" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">含税单价</label>
+                                <input type="number" class="form-control" ng-model="mc_create.currentMaterial.PriceWithTax" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">不含税单价</label>
+                                <input type="number" class="form-control" ng-model="mc_create.currentMaterial.PriceNotTax">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">材料类别</label>
+                                <input type="text" ng-model="mc_create.currentMaterial.MaterialType" uib-typeahead="type for type in mc_create.types | filter:$viewValue |limitTo:10" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">材料级别</label>
+                                <select class="form-control" ng-model="mc_create.currentMaterial.MaterialLevel" required>
+                                    <option value="A级">A级</option>
+                                    <option value="B级">B级</option>
+                                    <option value="C级">C级</option>
+                                    <option value="D级">D级</option>
+                                    <option value="E级">E级</option>
+                                    <option value="F级">F级</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">使用记录</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Record" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">质量评价</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Quality" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">所属区域(省)</label>
+                                <select class="form-control" ng-model="mc_create.currentMaterial.AreaProvince" required>
+                                            <option ng-repeat="p in mc_create.provinces" value="{{p.name}}">
+                                                {{p.name}}
+                                            </option>
+                                        </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">所属区域(市)</label>
+                                <select class="form-control" ng-model="mc_create.currentMaterial.AreaCity" required>
+                                            <option ng-repeat="c in mc_create.citys" value="{{c.name}}">
+                                                {{c.name}}
+                                            </option>
+                                        </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">操作人</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Handler" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" ng-model="mc_create.currentMaterial.Remarks"></textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">供应商类别</label>
+                                <select class="form-control" ng-model="mc_create.currentMaterial.SupplierType" required>
+                                    <option value="厂家">厂家</option>
+                                    <option value="代理商">代理商</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">供应商名称</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.SupplierName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">联系人</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Contacts" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">性别</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Gender" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">职务</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Duty" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">电话</label>
+                                <input type="text" class="form-control" ng-model="mc_create.currentMaterial.Phone" required pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-white" ng-click="mc_create.cancel()">取消</button>
+                                <button class="btn btn-primary" type="submit">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

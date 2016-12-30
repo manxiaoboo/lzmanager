@@ -1,0 +1,113 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>账号中心</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <a>账号中心</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>基本信息</h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img alt="image" class="img-responsive" src="../../assets/images/profile_big.jpg">
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <h4><strong>{{profile.currentUser.name}}</strong></h4>
+                        <p>
+                            <img src="../../assets/images/profile_small.jpg" width="48" height="48" ng-if="!profile.currentUser.head"/>
+                            <img ng-src="{{profile.headurl}}" width="48" height="48" ng-if="!!profile.currentUser.head"/>
+                            
+                        </p>
+                            <div class="btn btn-primary form-control" ngf-select="profile.upload($file)" ng-model="tempfile" name="file" ngf-pattern="'image/*'"
+                                accept="image/*" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 250, height: 250}"
+                                id="upload">
+                                更换头像
+                            </div>
+                        <p><i class="fa fa-soundcloud"></i> {{profile.currentUser.provider}}</p>
+                        <h5>
+                            身份：{{profile.currentUser.role=='admin'?'管理员':'用户'}}
+                        </h5>
+                        <p>
+                            邮箱: {{profile.currentUser.email}}
+                        </p>
+                        <div class="user-button">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block" ng-click="profile.goChangePassword()"><i class="fa fa-cog"></i> 修改密码 </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-default btn-sm btn-block" ng-click="profile.logout()"><i class="fa fa-sign-out"></i> 退出登录</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>便签</h5>
+                    <div class="ibox-tools">
+                        <button class="btn btn-primary" ng-click="profile.open()">新建便签</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div>
+                        <ul class="notes">
+                            <li ng-repeat="m in profile.memos | orderBy:'-Rating' | limitTo:profile.limit">
+                                <div>
+                                    <small>{{m.CreatedDate | date:'yyyy-MM-dd'}}</small>
+                                    <h4><span uib-rating ng-model="m.Rating" max="5" read-only="true" aria-labelledby="default-rating"></span></h4>
+                                    <p>{{m.Content}}</p>
+                                    <a href="javascript:void(0)" ng-click="profile.deleteMemo(m._id)"><i class="fa fa-trash-o "></i></a>
+                                    <a href="javascript:void(0)" ng-click="profile.updateMemo(m)" style="right:40px"><i class="fa fa-edit "></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary btn-block " ng-click="profile.showMore()" ng-if="profile.memos.length>profile.limit"><i class="fa fa-arrow-down"></i> 显示更多</button>
+                        <button class="btn btn-default btn-block " ng-if="profile.memos.length<=profile.limit" disabled="disabled">没有更多了</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">编辑便签</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+             <form class="m-t" role="form" name="form">
+            <div>
+                 <label>重要度：</label>
+               <span uib-rating ng-model="modal.memo.Rating" max="5" aria-labelledby="default-rating"></span>
+            </div>
+           <div>
+               <label>（100字以内）</label>
+               <textarea class="form-control" ng-model="modal.memo.Content"></textarea>
+           </div>
+             </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="modal.ok()">确认保存</button>
+            <button class="btn btn-warning" type="button" ng-click="modal.cancel()">取消</button>
+        </div>
+    </script>

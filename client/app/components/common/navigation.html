@@ -1,0 +1,47 @@
+<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="CommonController as common">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="profile-element" uib-dropdown>
+                    <span>
+                        <img alt="{{common.currentuser.name}}" class="img-circle" ng-src="{{common.headurl}}" width="48" height="48" />
+                    </span>
+                    <a uib-dropdown-toggle="" href>
+                        <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{common.currentuser.name}}<br>({{common.currentuser.email}})</strong>
+                             </span>
+                        <span class="text-muted text-xs block">更多操作<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul uib-dropdown-menu class="animated flipInX m-t-xs">
+                        <li><a href="javascript:void(0)" ui-sref="index.profile">账号中心</a></li>
+                        <li><a href="javascript:void(0)" ng-click="common.logout()">退出登录</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="index.installer_list"><i class="fa fa-laptop"></i> <span class="nav-label">安装商管理</span> </a>
+            </li>
+             <li ui-sref-active="">
+                <a ui-sref="index.material"><i class="fa fa-clipboard"></i> <span class="nav-label">安装材料管理</span> </a>
+            </li>
+             <li ui-sref-active="">
+                <a ui-sref="index.datamap"><i class="fa fa-map-marker"></i> <span class="nav-label">数据分布</span> </a>
+            </li>
+            <li ui-sref-active="">
+                <a href="javascript:void(0)"><i class="fa fa-cog"></i> <span class="nav-label">系统设置</span> </a>
+                <ul class="nav nav-second-level">
+                    <li><a ui-sref="index.users" has-permission="用户管理">用户管理</a></li>
+                    <li><a ui-sref="index.installer_list" has-permission="操作日志">操作日志</a></li>
+                    <li><a ui-sref="index.changepassword" has-permission="更改密码">更改密码</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

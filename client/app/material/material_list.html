@@ -1,0 +1,483 @@
+<style>
+#example_paginate{margin-left:500px;}
+#example_filter{display:none}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>安装材料信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <strong>安装材料列表</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>安装材料列表</h5>
+                <div class="ibox-tools">
+                    <button class="btn btn-xs btn-primary" ng-click="material.createMaterial()" has-permission="新建-安装材料">新建安装材料</button>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <div>
+                    <label>检索条件</label>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>编号</label>
+                            <input type="text" class="form-control input-sm" ng-model="search_code">
+                        </div>
+                        <div class="col-sm-3">
+                             <label>名称</label>
+                            <input type="text" class="form-control input-sm" ng-model="search_name">
+                        </div>
+                        <div class="col-sm-3">
+                             <label>规格</label>
+                            <input type="text" class="form-control input-sm" ng-model="search_specification">
+                        </div>
+                        <div class="col-sm-3">
+                             <label>品牌</label>
+                            <input type="text" class="form-control input-sm" ng-model="search_brand">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>类别</label>
+                            <input type="text" ng-model="search_type" uib-typeahead="type for type in material.types | filter:$viewValue | limitTo:10" class="form-control input-sm" typeahead-show-hint="true" typeahead-min-length="0">
+                        </div>
+                        <div class="col-sm-3">
+                            <label>价格(起价)</label>
+                            <input type="number" class="form-control input-sm" ng-model="search_price_start">
+                        </div>
+                        <div class="col-sm-3">
+                            <label>价格(终价)</label>
+                            <input type="number" class="form-control input-sm" ng-model="search_price_end">
+                        </div>
+                        <div class="col-sm-3">
+                             <label>操作</label>
+                             <br>
+                            <button class="btn  btn-primary btn-sm" ng-click="material.exportToExcel('#exportAll')">导出全部Excel</button>
+                            <button class="btn  btn-primary btn-sm" ng-click="material.exportToExcel('#export')">导出选中Excel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" style="overflow-x:hidden">
+                    <table id="example" class="dataTable row-border hover"  datatable="ng"  dt-options="material.dtOptions" dt-instance="material.materials"><!-- dt-columns="material.dtColumns"-->
+                   <!--<tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>-->
+                        <thead>
+                            <tr>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">选择</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">编号</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料名称</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">规格</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">单位</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">含税单价</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料品牌</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">更新日期</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料类别</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料级别</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">区域</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">操作</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="m in material.materials | filter:{MaterialName:search_name}
+                            | filter:{MaterialCode:search_code}| filter:{Specification:search_specification}| handlePrice:search_price_start:'start'|handlePrice:search_price_end:'end'
+                            | filter:{MaterialBrand:search_brand}| filter:{MaterialType:search_type}">
+                                <td><input type="checkbox" ng-model="m.checked"></td>
+                                <td>{{m.MaterialCode}}</td>
+                                <td>{{m.MaterialName}}</td>
+                                <td>{{m.Specification}}</td>
+                                <td>{{m.Unit}}</td>
+                                <td>{{m.PriceWithTax}}</td>
+                                <td>{{m.MaterialBrand}}</td>
+                                <td>{{m.UpdateDate | date:"yyyy-MM-dd"}}</td>
+                                <td>{{m.MaterialType}}</td>
+                                <td>{{m.MaterialLevel}}</td>
+                                <td>{{m.AreaProvince+"-"+m.AreaCity}}</td>
+                                <td>
+                                    <a ng-click="material.goView(m._id)"
+                                        href="javascript:void(0)" has-permission="安装材料基本信息">查看</a>&nbsp;&nbsp;
+                                    <a ng-click="material.goUpdate(m._id)" href="javascript:void(0)" has-permission="编辑-安装材料">编辑</a>
+                                    <a ng-click="material.deleteMaterial(m._id)" href="javascript:void(0)" has-permission="删除-安装材料">删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                    <table id="exportAll" class="dataTable row-border hover" style="display:none">
+                           <thead>
+                            <tr>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">编号</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料名称</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">规格</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">单位</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">含税单价</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">不含税单价</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料品牌</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">登记日期</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">更新日期</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料类别</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料级别</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">区域</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">操作人</span>
+                                    </div>
+                                </th>
+
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">联系人</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">职务</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">性别</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">电话</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">质量评价</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">使用记录</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">供应商名字</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">供应商类型</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">备注</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr ng-repeat="m in material.materials">
+                                <td>{{m.MaterialCode}}</td>
+                                <td>{{m.MaterialName}}</td>
+                                <td>{{m.Specification}}</td>
+                                <td>{{m.Unit}}</td>
+                                <td>{{m.PriceWithTax}}</td>
+                                <td>{{m.PriceNotTax}}</td>
+                                <td>{{m.MaterialBrand}}</td>
+                                <td>{{m.RegistrationDate | date:"yyyy-MM-dd"}}</td>
+                                <td>{{m.UpdateDate | date:"yyyy-MM-dd"}}</td>
+                                <td>{{m.MaterialType}}</td>
+                                <td>{{m.MaterialLevel}}</td>
+                                <td>{{m.AreaProvince+"-"+m.AreaCity}}</td>
+                                <td>{{m.Handler}}</td>
+
+                                <td>{{m.Contacts}}</td>
+                                <td>{{m.Duty}}</td>
+                                <td>{{m.Gender}}</td>
+                                <td>{{m.Phone}}</td>
+                                <td>{{m.Quality}}</td>
+                                <td>{{m.Record}}</td>
+                                <td>{{m.SupplierName}}</td>
+                                <td>{{m.SupplierType}}</td>
+                                <td>{{m.Remarks}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>导出预览</h5>
+                <div class="ibox-tools">
+                   
+                </div>
+            </div>
+            <div class="ibox-content" >
+                 <table id="export" class="dataTable row-border hover">
+                           <thead>
+                            <tr>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">编号</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料名称</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">规格</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">单位</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">含税单价</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">不含税单价</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料品牌</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">登记日期</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">更新日期</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料类别</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">材料级别</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">区域</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">操作人</span>
+                                    </div>
+                                </th>
+
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">联系人</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">职务</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">性别</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">电话</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">质量评价</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">使用记录</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">供应商名字</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">供应商类型</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">备注</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr ng-repeat="m in material.materials | filter:{checked:'true'}">
+                                <td>{{m.MaterialCode}}</td>
+                                <td>{{m.MaterialName}}</td>
+                                <td>{{m.Specification}}</td>
+                                <td>{{m.Unit}}</td>
+                                <td>{{m.PriceWithTax}}</td>
+                                <td>{{m.PriceNotTax}}</td>
+                                <td>{{m.MaterialBrand}}</td>
+                                <td>{{m.RegistrationDate | date:"yyyy-MM-dd"}}</td>
+                                <td>{{m.UpdateDate | date:"yyyy-MM-dd"}}</td>
+                                <td>{{m.MaterialType}}</td>
+                                <td>{{m.MaterialLevel}}</td>
+                                <td>{{m.AreaProvince+"-"+m.AreaCity}}</td>
+                                <td>{{m.Handler}}</td>
+
+                                <td>{{m.Contacts}}</td>
+                                <td>{{m.Duty}}</td>
+                                <td>{{m.Gender}}</td>
+                                <td>{{m.Phone}}</td>
+                                <td>{{m.Quality}}</td>
+                                <td>{{m.Record}}</td>
+                                <td>{{m.SupplierName}}</td>
+                                <td>{{m.SupplierType}}</td>
+                                <td>{{m.Remarks}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

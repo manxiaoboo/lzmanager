@@ -1,0 +1,492 @@
+<style>
+#cooperations_paginate{margin-left:300px;}
+#achievements_paginate{margin-left:300px;}
+#investigates_paginate{margin-left:300px;}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>安装商信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <strong>安装商详细信息</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" style="margin-top:20%;" ng-if="!ins_info.infoid">
+    <div class="center-block text-center">
+        <h1>没有找到安装商<a ui-sref="index.installer_list">返回列表</a></h1>
+    </div>
+</div>
+<div class="row" ng-if="!!ins_info.infoid">
+    <div class="col-lg-9">
+        <div class="wrapper wrapper-content">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>详细信息</h5>
+                    <div class="ibox-tools">
+                        <button class="btn btn-xs btn-primary" ng-click="ins_info.goFiles()" has-permission="附件管理">附件管理</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <uib-tabset active="activeJustified" justified="false">
+                        <uib-tab index="0" heading="基础信息" has-permission="基本信息">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-click="ins_info.goUpdate()" class="btn btn-white btn-xs pull-right" has-permission="编辑-安装商">编辑信息</a>
+                                            <h2>{{ins_info.installer.InstallerName}}</h2>
+                                        </div>
+                                        <dl class="dl-horizontal">
+                                            <dt>信用代码:</dt>
+                                            <dd><span class="label label-primary">{{ins_info.installer.CreditCode}}</span></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+                                            <dt>法人代表:</dt>
+                                            <dd>{{ins_info.installer.LegalPerson}}</dd>
+                                            <dt>单位类型:</dt>
+                                            <dd>{{ins_info.installer.CompanyType}}</dd>
+                                            <dt>注册资金:</dt>
+                                            <dd>{{ins_info.installer.RegisteredCapital | currency:"￥"}}</dd>
+                                            <dt>成立日期:</dt>
+                                            <dd>{{ins_info.installer.CompanyCreatedDate|date:'yyyy-MM-dd'}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-7" id="cluster_info">
+                                        <dl class="dl-horizontal">
+                                             <dt>营业期限</dt>
+                                             <dd>{{ins_info.installer.OperatingPeriodStart | date:'yyyy-MM-dd'}} 至 <span ng-if="!!ins_info.installer.OperatingPeriodEnd">{{ins_info.installer.OperatingPeriodEnd | date:'yyyy-MM-dd'}}</span><span ng-if="!ins_info.installer.OperatingPeriodEnd">长期</span></dd>
+                                            <dt>核准日期:</dt>
+                                            <dd>{{ins_info.installer.ApprovedDate|date:'yyyy-MM-dd'}}</dd>
+                                            <dt>开户账号:</dt>
+                                            <dd>{{ins_info.installer.AccountOpening}}</dd>
+                                            <dt>开户行:</dt>
+                                            <dd>{{ins_info.installer.BankAccount}}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+                                            <dt>单位资质:</dt>
+                                            <dd>{{ins_info.installer.UnitQualification}}</dd>
+                                            <dt>单位地址:</dt>
+                                            <dd>{{ins_info.installer.CompanyAddress}}</dd>
+                                            <dt>公司网址:</dt>
+                                            <dd>{{ins_info.installer.CompanyWebsite}}</dd>
+                                            <dt>公司邮箱:</dt>
+                                            <dd>{{ins_info.installer.CompanyEmail}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-7" id="cluster_info">
+                                        <dl class="dl-horizontal">
+                                            <dt>联系方式:</dt>
+                                            <dd>{{ins_info.installer.CompanyContact}}</dd>
+                                            <dt>单位编号:</dt>
+                                            <dd>{{ins_info.installer.CompanyNumber}}</dd>
+                                            <dt>登记日期:</dt>
+                                            <dd>{{ins_info.installer.RegistrationDate|date:'yyyy-MM-dd'}}</dd>
+                                            <dt>更新日期:</dt>
+                                            <dd>{{ins_info.installer.UpdateDate|date:'yyyy-MM-dd'}}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <dl class="dl-horizontal">
+                                            <dt>所属区域:</dt>
+                                            <dd><span class="label label-info">{{ins_info.installer.AreaProvince}}-{{ins_info.installer.AreaCity}}</span></dd>
+                                            <br>
+                                            <dt>所属事务所:</dt>
+                                            <dd>{{ins_info.installer.Office}}</dd>
+                                            <dt>负责人:</dt>
+                                            <dd>{{ins_info.installer.Header}}</dd>
+                                            <dt>单位级别:</dt>
+                                            <dd>{{ins_info.installer.Level}}级</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="1" heading="人员配置" has-permission="人员配置情况">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-if="!!ins_info.installer_personnelconfiguration" ng-click="ins_info.goUpdateConfiguration()" class="btn btn-white btn-xs pull-right"
+                                                has-permission="编辑-人员配置情况">编辑配置</a>
+                                            <a ng-if="!ins_info.installer_personnelconfiguration" ng-click="ins_info.goCreateConfiguration()" class="btn btn-white btn-xs pull-right"
+                                                has-permission="新建-人员配置情况">新建人员配置</a>
+                                            <h2>人员配置情况</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="!!ins_info.installer_personnelconfiguration">
+                                    <div class="col-lg-5">
+                                        <dl class="dl-horizontal">
+                                            <dt>单位总人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.InstallerCount}}人</dd>
+                                            <dt>技术人员总人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.TechnicalCount}}人</dd>
+                                            <dt>项目经理总数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.ProjectManagerCount}}人</dd>
+                                            <dt>机电类人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.TypeofElectromechanical}}人</dd>
+                                            <dt>土建类人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.TypeofCivil}}人</dd>
+                                            <dt>技术负责人人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.TechnicalLeaderCount}}人</dd>
+                                            <dt>安全员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.SecurityOfficerCount}}人</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-lg-7" id="cluster_info">
+                                        <dl class="dl-horizontal">
+                                            <dt>施工员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.ConstructionCount}}人</dd>
+                                            <dt>造价员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.ManufacturingCostCount}}人</dd>
+                                            <dt>质检员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.InspectorCount}}人</dd>
+                                            <dt>档案员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.ArchivistCount}}人</dd>
+                                            <dt>材料员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.MaterialMemberCount}}人</dd>
+                                            <dt>特种作业人员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.SpecialOperationCount}}人</dd>
+                                            <dt>售后人员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.AfterSalesCount}}人</dd>
+                                            <dt>其他人员人数:</dt>
+                                            <dd>{{ins_info.installer_personnelconfiguration.OtherPersonCount}}人</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="ins_info.installer_personnelconfiguration.length<=0">
+                                    <h3 class="text-center">尚未配置人员信息，请配置</h3>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="2" heading="业务联系人" has-permission="业务联系人">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-click="ins_info.goCreateContact()" class="btn btn-white btn-xs pull-right" has-permission="新建-业务联系人">新建业务联系人</a>
+                                            <h2>业务联系人</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <table class="table">
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>部门</th>
+                                                <th>职务</th>
+                                                <th>登记日期</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            <tr ng-repeat="row in ins_info.installer_businesscontact">
+                                                <td>{{row.ContactName}}</td>
+                                                <td>{{row.ContactDepartment}}</td>
+                                                <td>{{row.ContactPost}}</td>
+                                                <td>{{row.ContactRegistrationDate |date:"yyyy-MM-dd"}}</td>
+                                                <td>
+                                                    <a href="javascript:void(0)" ng-click="ins_info.contacttoggle(row)">查看</a>
+                                                    <a href="javascript:void(0)" ng-click="ins_info.goUpdateContact(row._id)" has-permission="编辑-业务联系人">编辑</a>
+                                                    <a href="javascript:void(0)" ng-click="ins_info.deleteContact(row._id)" has-permission="删除-业务联系人">删除</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div uib-collapse="!ins_info.isCollapsed">
+                                            <div class="well well-lg">
+                                                <div class="view">
+                                                    <dl contenteditable="true" class="dl-horizontal">
+                                                        <dt>姓名</dt>
+                                                        <dd>{{ins_info.currentContact.ContactName}}</dd>
+                                                        <dt>性别</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactGender}}
+                                                        </dd>
+                                                        <dt>所在部门</dt>
+                                                            <dd>{{ins_info.currentContact.ContactDepartment}}</dd>
+                                                        <dt>职务</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactPost}}
+                                                        </dd>
+                                                        <dt>常用电话1</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactPhone1}}
+                                                        </dd>
+                                                        <dt>常用电话2</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactPhone2}}
+                                                        </dd>
+                                                        <dt>传真</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactFax}}
+                                                        </dd>
+                                                        <dt>邮箱</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactEmail}}
+                                                        </dd>
+                                                        <dt>登记日期</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactRegistrationDate | date:"yyyy-MM-dd"}}
+                                                        </dd>
+                                                        <dt>备注</dt>
+                                                        <dd>
+                                                            {{ins_info.currentContact.ContactRemarks}}
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="3" heading="合作经历" has-permission="合作经历">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-click="ins_info.goCreateCooperation()" class="btn btn-white btn-xs pull-right" has-permission="新建-合作经历">新建合作经历</a>
+                                            <h2>合作经历</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="dataTable row-border hover" id="cooperations" datatable="ng" dt-instance="ins_info.installer_Cooperations" dt-options="ins_info.dtOptions">
+                                        <thead>
+                                            <tr>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">项目名称</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">项目地点</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">项目合同额</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">合同签订日期</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">开工日期</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">竣工日期</span>
+                                                    </div>
+                                                </th>
+                                                <th class="secondary-text">
+                                                    <div class="table-header">
+                                                        <span class="column-title">其他</span>
+                                                    </div>
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="c in ins_info.installer_Cooperations">
+                                                <td>{{c.ProjectName}}</td>
+                                                <td>{{c.ProjectAddress}}</td>
+                                                <td>{{c.ProjectMoney}} {{c.MoneyType}}</td>
+                                                <td>{{c.ProjectCreateDate | date:"yyyy-MM-dd"}}</td>
+                                                <td>{{c.ProjectStartDate | date:"yyyy-MM-dd"}}</td>
+                                                <td>{{c.ProjectEndDate | date:"yyyy-MM-dd"}}</td>
+                                                <td>
+                                                    <a tooltip-placement="top-left" uib-tooltip="{{c.Content.substr(0,20)+'...'}}" ng-click="ins_info.openContent(c.Content)"
+                                                        href="javascript:void(0)">项目说明</a>&nbsp;&nbsp;
+                                                    <a ng-click="ins_info.goUpdateCooperation(c._id)" href="javascript:void(0)" has-permission="编辑-合作经历">编辑</a>
+                                                    <a ng-click="ins_info.deleteInstaller_Cooperation(c._id)" href="javascript:void(0)" has-permission="删除-合作经历">删除</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="4" heading="单位业绩" has-permission="单位业绩">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-click="ins_info.goCreateAchievement()" class="btn btn-white btn-xs pull-right" has-permission="新建-单位业绩">新建单位业绩</a>
+                                            <h2>单位业绩</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="dataTable row-border hover" id="achievements" datatable="ng" dt-instance="ins_info.installer_Achievements" dt-options="ins_info.dtOptions">
+                                            <thead>
+                                                <tr>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目名称</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目地点</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目合同额</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目工期</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">合作单位</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">其他</span>
+                                                        </div>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="c in ins_info.installer_Achievements">
+                                                    <td>{{c.ProjectName}}</td>
+                                                    <td>{{c.ProjectAddress}}</td>
+                                                    <td>{{c.ProjectMoney}} {{c.MoneyType}}</td>
+                                                    <td>{{c.ProjectDate}}</td>
+                                                    <td>{{c.Partner}}</td>
+                                                    <td>
+                                                        <a tooltip-placement="top-left" uib-tooltip="{{c.Content.substr(0,20)+'...'}}" ng-click="ins_info.openContent(c.Content)"
+                                                            href="javascript:void(0)">项目说明</a>&nbsp;&nbsp;
+                                                        <a ng-click="ins_info.goUpdateAchievement(c._id)" href="javascript:void(0)" has-permission="编辑-单位业绩">编辑</a>
+                                                        <a ng-click="ins_info.deleteInstaller_Achievement(c._id)" href="javascript:void(0)" has-permission="删除-单位业绩">删除</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="5" heading="考察情况" has-permission="考察情况">
+                            <div class="animated fadeIn ibox-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="m-b-md">
+                                            <a ng-click="ins_info.goCreateInvestigate()" class="btn btn-white btn-xs pull-right" has-permission="新建-考察情况">新建考察情况</a>
+                                            <h2>考察情况</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="dataTable row-border hover" id="investigates" datatable="ng" dt-instance="ins_info.installer_Investigates" dt-options="ins_info.dtOptions">
+                                            <thead>
+                                                <tr>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">考察项目</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目地点</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">项目合同额</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">考察时间</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">考察人</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="secondary-text">
+                                                        <div class="table-header">
+                                                            <span class="column-title">其他</span>
+                                                        </div>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="c in ins_info.installer_Investigates">
+                                                    <td>{{c.ProjectName}}</td>
+                                                    <td>{{c.ProjectAddress}}</td>
+                                                    <td>{{c.ProjectMoney}} {{c.MoneyType}}</td>
+                                                    <td>{{c.InvestigateDate | date:"yyyy-MM-dd"}}</td>
+                                                    <td>{{c.InvestigatePerson}}</td>
+                                                    <td>
+                                                        <a tooltip-placement="top-left" uib-tooltip="{{c.Content.substr(0,20)+'...'}}" ng-click="ins_info.openContent(c.Content)"
+                                                            href="javascript:void(0)">评论意见</a>&nbsp;&nbsp;
+                                                        <a ng-click="ins_info.goUpdateInvestigate(c._id)" href="javascript:void(0)" has-permission="编辑-考察情况">编辑</a>
+                                                        <a ng-click="ins_info.deleteInstaller_Investigate(c._id)" href="javascript:void(0)" has-permission="删除-考察情况">删除</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="wrapper wrapper-content project-manager">
+            <h4><i class="fa fa-circle text-warning"></i>&nbsp;经营范围</h4>
+            <p class="small">
+                {{ins_info.installer.BusinessScope}}
+            </p>
+            <h5>公司标签</h5>
+            <ul class="tag-list" style="padding: 0">
+                <li><a href=""><i class="fa fa-tag"></i> {{ins_info.installer.AreaProvince}}-{{ins_info.installer.AreaCity}}</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> {{ins_info.installer.Level}}级</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> {{ins_info.installer.AccountOpening}}</a></li>
+                <li><a href=""><i class="fa fa-tag"></i> {{ins_info.installer.CompanyAddress}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,35 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>权限配置</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li>
+                <strong>系统设置</strong>
+            </li>
+            <li>
+                <strong>账户管理</strong>
+            </li>
+            <li class="active">
+                <strong>权限配置</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="row">
+    <div class="wrapper wrapper-content">
+        <div class="ibox">
+            <div class="ibox-content">
+                操作权限：
+                <div
+                    ivh-treeview="cp.bag"
+                    ivh-treeview-filter="cp.bagSearch">
+                </div>
+                <button ng-click="cp.save()" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>

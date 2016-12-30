@@ -1,0 +1,204 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>安装材料信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <strong>编辑安装材料</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>*(编辑安装材料)</h5>
+                    <div class="ibox-tools">
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">材料名称</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.MaterialName" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">材料编号</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.MaterialCode" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">材料品牌</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.MaterialBrand" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">规格</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Specification" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">单位</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Unit" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">含税单价</label>
+                                <input type="number" class="form-control" ng-model="mu_update.currentMaterial.PriceWithTax" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">不含税单价</label>
+                                <input type="number" class="form-control" ng-model="mu_update.currentMaterial.PriceNotTax">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">材料类别</label>
+                                <input type="text" ng-model="mu_update.currentMaterial.MaterialType" uib-typeahead="type for type in mu_update.types | filter:$viewValue" class="form-control" typeahead-show-hint="true" typeahead-min-length="0">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">材料级别</label>
+                                <select class="form-control" ng-model="mu_update.currentMaterial.MaterialLevel" required>
+                                    <option value="A级">A级</option>
+                                    <option value="B级">B级</option>
+                                    <option value="C级">C级</option>
+                                    <option value="D级">D级</option>
+                                    <option value="E级">E级</option>
+                                    <option value="F级">F级</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">使用记录</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Record" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">质量评价</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Quality" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">所属区域(省)</label>
+                                <select class="form-control" ng-model="mu_update.currentMaterial.AreaProvince" required>
+                                            <option ng-repeat="p in mu_update.provinces" value="{{p.name}}">
+                                                {{p.name}}
+                                            </option>
+                                        </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">所属区域(市)</label>
+                                <select class="form-control" ng-model="mu_update.currentMaterial.AreaCity" required>
+                                            <option ng-repeat="c in mu_update.citys" value="{{c.name}}">
+                                                {{c.name}}
+                                            </option>
+                                        </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">操作人</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Handler" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label class="control-label">备注</label>
+                                <textarea class="form-control" ng-model="mu_update.currentMaterial.Remarks"></textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">供应商类别</label>
+                                <select class="form-control" ng-model="mu_update.currentMaterial.SupplierType" required>
+                                    <option value="厂家">厂家</option>
+                                    <option value="代理商">代理商</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">供应商名称</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.SupplierName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">联系人</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Contacts" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">性别</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Gender" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="control-label">职务</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Duty" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">电话</label>
+                                <input type="text" class="form-control" ng-model="mu_update.currentMaterial.Phone" required pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                图片预览
+                                            </th>
+                                            <th>
+                                                图片名称
+                                            </th>
+                                            <th>
+                                                操作
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in mu_update.currentMaterial.Images">
+                                            <td>
+                                                <img ng-src="http://oh4l42l8h.bkt.clouddn.com/{{i.Key}}" width="100" height="100">
+                                            </td>
+                                            <td>
+                                                <b>{{i.Name}}</b>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-white" ng-click="mu_update.deleteImage(i.Key)"><i class="fa fa-trash"></i> </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-block btn-success" ngf-select="mu_update.upload($file)" ng-model="tempfile" name="file" ngf-max-size="10MB"
+                                    ngf-pattern="'image/*'" accept="image/*" ngf-min-height="100" id="upload">上传图片</button>
+                            </div>
+                        </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button class="btn btn-white" ng-click="mu_update.cancel()">取消</button>
+                        <button class="btn btn-primary" ng-click="mu_update.update()">保存</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

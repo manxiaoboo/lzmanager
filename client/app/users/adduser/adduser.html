@@ -1,0 +1,81 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>添加用户</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li>
+                <strong>用户管理</strong>
+            </li>
+            <li class="active">
+                <strong>添加用户</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>*(添加用户)</h5>
+                    <div class="ibox-tools">
+                       
+                    </div>
+                </div>
+                <div class="ibox-content">
+                        <form class="form-horizontal" ng-submit="ua.create()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">昵称</label>
+                                        <input type="text" class="form-control" ng-model="ua.user.name">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                         <label class="control-label">邮箱</label>
+                                        <input type="email" class="form-control" ng-model="ua.user.email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">密码</label>
+                                        <input type="password" class="form-control" ng-model="ua.user.password">
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">密码确认</label>
+                                        <input type="password" class="form-control" ng-model="ua.confirmpassword">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">身份</label>
+                                        <select class="form-control" ng-model="ua.user.role">
+                                            <option selected value="user">用户</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                 <div class="hr-line-dashed"></div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" ng-click="ua.goBack()">取消</button>
+                                        <button class="btn btn-primary" type="submit">创建</button>
+                                    </div>
+                                </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

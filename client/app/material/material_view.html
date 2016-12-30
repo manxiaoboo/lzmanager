@@ -1,0 +1,101 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>安装材料信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                <strong>查看安装材料</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div ng-carousel ng-carousel-name="image" ng-if="!!mv_view.currentMaterial" style="height:450px">
+                                <slidecontainer>
+                                    <slide ng-repeat="img in mv_view.currentMaterial.Images">
+                                        <img ng-src="http://oh4l42l8h.bkt.clouddn.com/{{img.Key}}" style="margin:auto; width:100%;height:100%;">
+                                    </slide>
+                                </slidecontainer>
+                                <div class="carousel-arrow carousel-arrow-left">
+                                    <button class="btn btn-default btn-xs" ng-click="mv_view.Carousel.get('image').previous()">上一张</button>
+                                </div>
+                                <div class="carousel-arrow carousel-arrow-right">
+                                    <button class="btn btn-default btn-xs" ng-click="mv_view.Carousel.get('image').next()">下一张</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+
+                            <h2 class="font-bold m-b-xs">
+                                {{mv_view.currentMaterial.MaterialName}} ( {{mv_view.currentMaterial.MaterialCode}} )
+                            </h2>
+                            <div class="m-t-md">
+                                <h2 class="product-main-price">￥{{mv_view.currentMaterial.PriceWithTax}} <small class="text-muted">单价含税</small> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    ￥{{mv_view.currentMaterial.PriceNotTax}} <small class="text-muted">单价不含税</small> </h2>
+                            </div>
+                            <hr>
+                             <small>类型 ：{{mv_view.currentMaterial.MaterialType}} 
+                                &nbsp;&nbsp; 级别 ：{{mv_view.currentMaterial.MaterialLevel}} 
+                                &nbsp;&nbsp; 品牌 ：{{mv_view.currentMaterial.MaterialBrand}}
+                                &nbsp;&nbsp; 规格 ：{{mv_view.currentMaterial.Specification}} 
+                                <br>
+                                单位 ：{{mv_view.currentMaterial.Unit}}
+                                &nbsp;&nbsp; 地区 ：{{mv_view.currentMaterial.AreaProvince}}-{{mv_view.currentMaterial.AreaCity}}
+                                &nbsp;&nbsp; 操作人 ：{{mv_view.currentMaterial.Handler}}
+                            </small>
+                            <dl class="small m-t-md">
+                                <dt>登记日期</dt>
+                                <dd>{{mv_view.currentMaterial.RegistrationDate | date:"yyyy-MM-dd"}}</dd>
+                                <dt>更新日期</dt>
+                                <dd>{{mv_view.currentMaterial.UpdateDate | date:"yyyy-MM-dd"}}</dd>
+                                <dt>使用记录</dt>
+                                <dd>{{mv_view.currentMaterial.Record}}</dd>
+                                <dt>质量评价</dt>
+                                <dd>{{mv_view.currentMaterial.Quality}}</dd>
+                                <dt>商品备注</dt>
+                                <dd>{{mv_view.currentMaterial.Remarks}}</dd>
+                            </dl>
+                            <hr>
+                            <dl class="small m-t-md">
+                                <dt>供应商</dt>
+                                <dd>{{mv_view.currentMaterial.SupplierName}}({{mv_view.currentMaterial.SupplierType}})</dd>
+                                <dt>联系人({{mv_view.currentMaterial.Gender}})</dt>
+                                <dd>{{mv_view.currentMaterial.Contacts}}</dd>
+                                <dt>职务</dt>
+                                <dd>{{mv_view.currentMaterial.Duty}}</dd>
+                                <dt>电话</dt>
+                                <dd>{{mv_view.currentMaterial.Phone}}</dd>
+                            </dl>
+                            <div>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm" ng-click="mv_view.goList()"><i class="fa fa-reply"></i> 返回列表 </button>
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-external-link"></i> 导出</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ibox-footer">
+                    <span class="pull-right">
+                               创建日期 <i class="fa fa-clock-o"></i> {{mv_view.currentMaterial.CreatedDate | date:'yyyy-MM-dd'}}
+                            </span> 材料<b>{{mv_view.currentMaterial.MaterialName}}</b>详细信息
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
